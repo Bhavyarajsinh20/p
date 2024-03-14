@@ -1,12 +1,13 @@
-import { HStack, Image, Text } from "@chakra-ui/react";
+import { HStack, Image } from "@chakra-ui/react";
 import logo from "../assets/download.jpg";
+import ColorMode from "./ColorMode";
 
 const Navbar = () => {
   return (
     <>
-      <HStack>
+      <HStack justifyContent={"space-between"} padding={"10px"}>
         <Image src={logo} padding={"5px"} boxSize={"50px"} />
-        <Text>Navbar</Text>
+        <ColorMode />
       </HStack>
     </>
   );

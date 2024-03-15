@@ -7,7 +7,7 @@ const GameGride = () => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 5 }} spacing={10}>
+      <SimpleGrid columns={{ sm: 2, md: 3, lg: 4, xl: 5 }} spacing={10}>
         {games.map((game) => (
           <GameCart key={game.id} game={game} />
         ))}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClilent from "../service/api-clilent";
-import { CanceledError } from "axios";
+import { AxiosRequestConfig, CanceledError } from "axios";
 
 interface FetchRespones<T>{
     count:number;
@@ -8,7 +8,7 @@ interface FetchRespones<T>{
 
 }
 
-const useData= <T>(endpoint:string)=> {
+const useData= <T>(endpoint:string,requstconfing?:AxiosRequestConfig,deps?:any[])=> {
     const [data, setData] = useState<T[]>([]);
     const [error, setError] = useState("");
     const[isLoding,setLoding]= useState(false);
@@ -19,7 +19,7 @@ const useData= <T>(endpoint:string)=> {
 
     setLoding(true);
     apiClilent
-      .get<FetchRespones<T>>(endpoint,{signal:controller.signal})
+      .get<FetchRespones<T>>(endpoint,{signal:controller.signal, ...requstconfing})
       .then((res) => {
         setData(res.data.results);
         setLoding(false);
@@ -31,7 +31,7 @@ const useData= <T>(endpoint:string)=> {
     });
 
       return () => controller.abort();
-  },[]);
+  },deps ? [...deps] : []);
 
   return {data,error,isLoding};
 };

@@ -3,10 +3,13 @@ import useGames from "../Hooks/useGames";
 import GameCart from "./GameCart";
 import GameCartSkeleton from "./GameCartSkeleton";
 import GameCartContainer from "./GameCartContainer";
-import { MdPadding } from "react-icons/md";
+import { Genre } from "../Hooks/useGenrel";
 
-const GameGride = () => {
-  const { data, error, isLoding } = useGames();
+interface Props {
+  selectedGenre: Genre | null;
+}
+const GameGride = ({ selectedGenre }: Props) => {
+  const { data, error, isLoding } = useGames(selectedGenre);
   const skeletons = [1, 2, 3, 4, 5, 6];
   return (
     <>
@@ -18,13 +21,13 @@ const GameGride = () => {
       >
         {isLoding &&
           skeletons.map((skeleton) => (
-            <GameCartContainer>
-              <GameCartSkeleton key={skeleton} />
+            <GameCartContainer key={skeleton}>
+              <GameCartSkeleton />
             </GameCartContainer>
           ))}
         {data.map((games) => (
-          <GameCartContainer>
-            <GameCart key={games.id} game={games} />
+          <GameCartContainer key={games.id}>
+            <GameCart game={games} />
           </GameCartContainer>
         ))}
       </SimpleGrid>
